@@ -5,3 +5,12 @@
 4. Inception V3 train 
     Train data 52 / Test 20
     Best Trian accuracy 100%, test 0.75 (Spectogram)
+
+Next
+1. Data aguementation
+  1.1 Sound
+  1.1.1 Time shift
+  1.1.2 add noise
+  
+  1.2 Spectogram
+  1.1.2 SpecAugment

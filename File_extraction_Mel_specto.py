@@ -9,7 +9,7 @@ from tqdm import tqdm
 # =====================================================
 # 경로 설정
 # =====================================================
-INPUT_ROOT = r"C:\Users\user\OneDrive\바탕 화면\코딩 데이터\Respiratory_Sound_Database\Respiratory_Sound_Database"
+INPUT_ROOT = r"C:\Users\user\OneDrive\바탕 화면\코딩 데이터\Respiratory_Sound_Database\Respiratory_Sound_Database\Augmented_Wav_TimeShift"
 OUTPUT_ROOT = r"C:\Users\user\OneDrive\바탕 화면\코딩 데이터\Respiratory_Sound_Database\Respiratory_Sound_Database\MelSpectrogram_Output"
 
 CLASSES = ["Pneumonia", "Healthy"]

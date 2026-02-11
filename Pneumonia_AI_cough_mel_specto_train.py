@@ -20,9 +20,9 @@ TEST_DIR  = DATA_ROOT / "test"
 SAVE_DIR = DATA_ROOT / "results_inception_v3"
 SAVE_DIR.mkdir(parents=True, exist_ok=True)
 
-BATCH_SIZE = 32
+BATCH_SIZE = 64
 NUM_EPOCHS = 20
-LR = 1e-4
+LR = 5e-4
 WEIGHT_DECAY = 1e-4
 
 IMG_SIZE = 299
@@ -94,7 +94,10 @@ def build_model(num_classes: int):
     weights = Inception_V3_Weights.DEFAULT
     model = inception_v3(weights=weights, aux_logits=True)
 
-    model.fc = nn.Linear(model.fc.in_features, num_classes)
+    model.fc = nn.Sequential(
+    nn.Dropout(p=0.5),
+    nn.Linear(model.fc.in_features, num_classes)
+    )
     if model.aux_logits and model.AuxLogits is not None:
         model.AuxLogits.fc = nn.Linear(model.AuxLogits.fc.in_features, num_classes)
 
@@ -112,8 +115,8 @@ def main():
     # Transform (MelSpectrogram 특성상 augmentation은 약하게)
     train_tf = transforms.Compose([
         transforms.Resize((IMG_SIZE, IMG_SIZE)),
-        transforms.RandomHorizontalFlip(p=0.3),
-        transforms.RandomApply([transforms.RandomRotation(5)], p=0.3),
+       #transforms.RandomHorizontalFlip(p=0.3),
+       # transforms.RandomApply([transforms.RandomRotation(5)], p=0.3),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406],
                              std =[0.229, 0.224, 0.225]),

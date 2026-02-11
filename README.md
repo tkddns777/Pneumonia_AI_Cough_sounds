@@ -1,1 +1,1 @@
-# Pneumonia_AI_Couch-sounds
+# Pneumonia_AI_Cough_sounds

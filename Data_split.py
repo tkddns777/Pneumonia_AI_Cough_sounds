@@ -7,7 +7,7 @@ from typing import Dict, List, Tuple
 # =====================================================
 # 설정: 여기만 수정
 # =====================================================
-SRC_ROOT = Path(r"C:\Users\user\OneDrive\바탕 화면\코딩 데이터\Respiratory_Sound_Database\Respiratory_Sound_Database\Spectrogram_Output")
+SRC_ROOT = Path(r"C:\Users\user\OneDrive\바탕 화면\코딩 데이터\Respiratory_Sound_Database\Respiratory_Sound_Database\MelSpectrogram_Output")
 
 # 폴더명
 CLASS_DIRS = ["Pneumonia", "Healthy"]

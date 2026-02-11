@@ -4,4 +4,4 @@
 3. Sound -> Mel_spectogram/spectogram
 4. Inception V3 train 
     Train data 52 / Test 20
-    Best Trian accuracy 100%, test 0.75
+    Best Trian accuracy 100%, test 0.75 (Spectogram)

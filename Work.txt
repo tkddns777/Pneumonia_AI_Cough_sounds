@@ -1,0 +1,7 @@
+2026.02.11
+1. Data : https://www.kaggle.com/datasets/vbookshelf/respiratory-sound-database
+2. Pneumonia / Healthy sound data
+3. Sound -> Mel_spectogram/spectogram
+4. Inception V3 train 
+    Train data 52 / Test 20
+    Best Trian accuracy 100%, test 0.75

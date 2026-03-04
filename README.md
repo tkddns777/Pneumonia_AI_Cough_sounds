@@ -1,1 +1,1 @@
-# Pneumonia_AI_Cough_sounds
+# Pneumonia_AI_lung_auscultation_sounds

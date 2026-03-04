@@ -5,29 +5,44 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 from tqdm import tqdm
+from scipy.signal import butter, filtfilt
+
 
 # =====================================================
-# 경로 설정
+# 경로 설정 테스트셋이랑 훈련 셋 따로따로 경로 바꿔서 그때마다 해야함
 # =====================================================
-INPUT_ROOT = r"C:\Users\user\OneDrive\바탕 화면\코딩 데이터\Respiratory_Sound_Database\Respiratory_Sound_Database\Augmented_Wav_TimeShift"
-OUTPUT_ROOT = r"C:\Users\user\OneDrive\바탕 화면\코딩 데이터\Respiratory_Sound_Database\Respiratory_Sound_Database\MelSpectrogram_Output"
+INPUT_ROOT = r"C:\Users\user\OneDrive\바탕 화면\코딩 데이터\Respiratory_Sound_Database\Respiratory_Sound_Database\Data\train_augmented"
+OUTPUT_ROOT = r"C:\Users\user\OneDrive\바탕 화면\코딩 데이터\Respiratory_Sound_Database\Respiratory_Sound_Database\Mel_Data\train_augmented"
 
 CLASSES = ["Pneumonia", "Healthy"]
 
 # =====================================================
 # Mel-spectrogram 파라미터
 # =====================================================
-SR = 22050
+SR = 16000
 N_MELS = 128
-N_FFT = 2048
-HOP_LENGTH = 512
+N_FFT = 1024
+HOP_LENGTH = 256
 DURATION = 5.0  # seconds
+
 
 # =====================================================
 # 출력 폴더 생성 (클래스별)
 # =====================================================
 for cls in CLASSES:
     os.makedirs(os.path.join(OUTPUT_ROOT, cls), exist_ok=True)
+
+# =====================================================
+# Bandpass Filter 함수 (50Hz ~ 2000Hz)
+def bandpass_filter(signal, sr, low=50, high=2000):
+
+    nyquist = sr / 2
+    low = low / nyquist
+    high = high / nyquist
+
+    b, a = butter(4, [low, high], btype='band')
+    return filtfilt(b, a, signal)
+
 
 # =====================================================
 # wav → mel-spectrogram 저장 함수
@@ -40,6 +55,7 @@ def save_mel(wav_path, save_path):
             mono=True,
             duration=DURATION
         )
+        y = bandpass_filter(y, sr) #bandpass filter 적용
 
         # 길이 보정 (padding / truncate)
         target_len = int(SR * DURATION)
@@ -53,13 +69,21 @@ def save_mel(wav_path, save_path):
             sr=sr,
             n_fft=N_FFT,
             hop_length=HOP_LENGTH,
-            n_mels=N_MELS
+            n_mels=N_MELS,
+            fmin=50,
+            fmax=2000
         )
 
         mel_db = librosa.power_to_db(mel, ref=np.max)
+        mel_db = (mel_db + 80) / 80 # Normalize to [0, 1]
 
-        plt.figure(figsize=(3, 3))
-        librosa.display.specshow(mel_db, sr=sr, hop_length=HOP_LENGTH)
+        plt.figure(figsize=(2.24, 2.24))
+        librosa.display.specshow(
+            mel_db,
+            sr=sr,
+            hop_length=HOP_LENGTH,
+            cmap="magma"
+        )
         plt.axis("off")
         plt.tight_layout(pad=0)
         plt.savefig(save_path, bbox_inches="tight", pad_inches=0)

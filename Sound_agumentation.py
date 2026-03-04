@@ -10,19 +10,19 @@ from tqdm import tqdm
 # =====================================================
 # 경로 설정
 # =====================================================
-INPUT_ROOT = r"C:\Users\user\OneDrive\바탕 화면\코딩 데이터\Respiratory_Sound_Database\Respiratory_Sound_Database"
-OUTPUT_ROOT = r"C:\Users\user\OneDrive\바탕 화면\코딩 데이터\Respiratory_Sound_Database\Respiratory_Sound_Database\Augmented_Wav_TimeShift"
+INPUT_ROOT = r"C:\Users\user\OneDrive\바탕 화면\코딩 데이터\Respiratory_Sound_Database\Respiratory_Sound_Database\Data\train"
+OUTPUT_ROOT = r"C:\Users\user\OneDrive\바탕 화면\코딩 데이터\Respiratory_Sound_Database\Respiratory_Sound_Database\Data\train_augmented"
 
 CLASSES = ["Pneumonia", "Healthy"]
 
 # =====================================================
 # 오디오 설정
 # =====================================================
-SR = 22050
+SR = 16000
 DURATION = 5.0                 # 모든 샘플을 5초로 통일 (원하면 None로 두고 원본 길이 유지 가능)
-MAX_SHIFT_SEC = 1.5            # 최대 이동 범위 (예: ±1초)
-N_AUG_PER_FILE = 100             # 원본 파일 당 몇 개 증강 생성
-SHIFT_MODE = "roll"            # "roll" 또는 "zero_pad"
+MAX_SHIFT_SEC = 1.0            # 최대 이동 범위 (예: ±1초)
+N_AUG_PER_FILE = 20             # 원본 파일 당 몇 개 증강 생성
+SHIFT_MODE = "zero_pad"            # "roll" 또는 "zero_pad"
 SEED = 42
 
 random.seed(SEED)
